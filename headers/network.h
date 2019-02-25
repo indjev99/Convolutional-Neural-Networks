@@ -1,21 +1,25 @@
 #ifndef NETWORK_H_INCLUDED
 #define NETWORK_H_INCLUDED
 
+#include "activation_function.h"
+#include "layer.h"
+#include <vector>
+
 class Network
 {
 private:
-    class Layer;
-    int networkSize;
-    int* topology;
-    int* currentInput;
-    Layer* layers;
+    int inputSize;
+    int networkDepth;
+    const std::vector<int> topology;
+    const ActivationFunction& activationFunction;
+    std::vector<Layer> layers;
+    std::vector<double> currInput;
     int batchCnt;
 public:
-    Network(networkSize, const int* topology);
-    ~Network();
-    const double* getOutput(const double* input);
-    void train(const double* targetOutput);
-    void applyTraining();
+    Network(int inputSize, const std::vector<int>& topology, const ActivationFunction& activationFunction);
+    const std::vector<double>& get_output(const std::vector<double> input);
+    void accumulate_training(const std::vector<double> targetOutput);
+    void apply_training();
 };
 
 #endif // NETWORK_H_INCLUDED

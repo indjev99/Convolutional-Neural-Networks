@@ -2,3 +2,29 @@
 1514140574 source:d:\github\convolutional-neural-networks\sources\main.cpp
 	<iostream>
 
+1551060893 source:d:\github\convolutional-neural-networks\sources\layer.cpp
+	"../headers/layer.h"
+	"stdlib.h"
+
+1551060805 d:\github\convolutional-neural-networks\headers\layer.h
+	"activation_function.h"
+	<vector>
+
+1551059357 d:\github\convolutional-neural-networks\headers\network.h
+	"activation_function.h"
+	"layer.h"
+	<vector>
+
+1551060772 source:d:\github\convolutional-neural-networks\sources\network.cpp
+	"../headers/network.h"
+	<assert.h>
+
+1551056093 source:d:\github\convolutional-neural-networks\sources\logistic_activation_function.cpp
+	"../headers/logistic_activation_function.h"
+	<math.h>
+
+1551057719 d:\github\convolutional-neural-networks\headers\logistic_activation_function.h
+	"activation_function.h"
+
+1551057840 d:\github\convolutional-neural-networks\headers\activation_function.h
+
