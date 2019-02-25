@@ -10,15 +10,20 @@ class Network
 private:
     int inputSize;
     int networkDepth;
-    const std::vector<int> topology;
+    int outputSize;
     const ActivationFunction& activationFunction;
-    std::vector<Layer> layers;
-    std::vector<double> currInput;
+    std::vector<Layer*> layers;
+    std::vector<double> input;
+    double eta;
     int batchCnt;
+    int maxLayerSize;
+    std::vector<double> dCost0dValues[2];
 public:
-    Network(int inputSize, const std::vector<int>& topology, const ActivationFunction& activationFunction);
+    Network(int inputSize, const std::vector<int>& topology, const ActivationFunction& activationFunction, std::default_random_engine& generator);
+    ~Network();
+    void set_eta(double eta);
     const std::vector<double>& get_output(const std::vector<double> input);
-    void accumulate_training(const std::vector<double> targetOutput);
+    double accumulate_training(const std::vector<double> targetOutput);
     void apply_training();
 };
 
