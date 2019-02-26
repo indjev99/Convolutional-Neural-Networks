@@ -15,9 +15,9 @@ private:
     std::vector<Layer*> layers;
     std::vector<double> input;
     double eta;
-    int batchCnt;
     int maxLayerSize;
     std::vector<double> dCost0dValues[2];
+    int batchCnt;
 public:
     Network(int inputSize, const std::vector<int>& topology, const ActivationFunction& activationFunction, std::default_random_engine& generator);
     ~Network();

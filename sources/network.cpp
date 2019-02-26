@@ -1,9 +1,6 @@
 #include "../headers/network.h"
 #include <assert.h>
 
-#include <iostream>
-using namespace std;
-
 Network::Network(int inputSize, const std::vector<int>& topology, const ActivationFunction& activationFunction, std::default_random_engine& generator)
     : inputSize{inputSize}
     , networkDepth{topology.size()}
@@ -66,18 +63,11 @@ double Network::accumulate_training(const std::vector<double> targetOutput)
     for (int i=0;i<outputSize;++i)
     {
         currDiff=output[i]-targetOutput[i];
-        //cerr<<output[i]<<" "<<targetOutput[i]<<"\n";
         cost0+=currDiff*currDiff;
         dCost0dValues[curr][i]=2*currDiff;
     }
     for (int i=networkDepth-1;i>=0;--i)
     {
-        /*cerr<<"layer: "<<i+1<<": ";
-        for (int j=0;j<layers[i]->get_values().size();++j)
-        {
-            cerr<<dCost0dValues[curr][j]<<" ";
-        }
-        cerr<<"\n";*/
         layers[i]->accumulate_training(dCost0dValues[curr],dCost0dValues[!curr]);
         curr=!curr;
     }

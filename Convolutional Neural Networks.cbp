@@ -28,10 +28,12 @@
 		<Unit filename="headers/network.h" />
 		<Unit filename="headers/logistic_activation_function.h" />
 		<Unit filename="headers/relu_activation_function.h" />
+		<Unit filename="headers/leaky_relu_activation_function.h" />
 		<Unit filename="sources/layer.cpp" />
 		<Unit filename="sources/network.cpp" />
 		<Unit filename="sources/logistic_activation_function.cpp" />
 		<Unit filename="sources/relu_activation_function.cpp" />
+		<Unit filename="sources/leaky_relu_activation_function.cpp" />
 		<Unit filename="sources/main.cpp" />
 		<Extensions>
 			<code_completion />
