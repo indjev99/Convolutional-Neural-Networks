@@ -1,5 +1,4 @@
 #include "../headers/relu_activation_function.h"
-#include <math.h>
 
 ReluActivationFunction reluActivationFunction;
 

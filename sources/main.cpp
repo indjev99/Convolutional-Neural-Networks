@@ -1,17 +1,42 @@
 #include "../headers/network.h"
 #include "../headers/logistic_activation_function.h"
 #include "../headers/relu_activation_function.h"
+#include "../headers/leaky_relu_activation_function.h"
 #include <iostream>
 #include <vector>
 #include <stdlib.h>
 #include <random>
+#include <conio.h>
 
 int main()
 {
     std::default_random_engine generator;
     std::uniform_int_distribution<int> distribution(0,1);
 
-    const int nums=3;
+    distribution(generator);
+
+    Network nn(2,{4,4,1},leakyReluActivationFunction,generator);
+    nn.set_eta(0.01);
+
+    double a,b,c,d;
+    int cnt=0;
+    while(1)
+    {
+        a=distribution(generator);
+        b=distribution(generator);
+        c=a&&b;
+        auto out=nn.get_output({a,b});
+        std::cout<<"iteration: "<<cnt<<" ans: "<<c<<" prediction: "<<out[0]<<" cost: "<<nn.accumulate_training({c})<<"\n\n";
+        ++cnt;
+        if (cnt%5==0)
+        {
+            std::cout<<"Apply training."<<"\n\n";
+            nn.apply_training();
+        }
+        //getch();
+    }
+
+    /*const int nums=3;
 
     Network nn(nums,{3*nums,3*nums,nums+1},reluActivationFunction,generator);
     nn.set_eta(0.01);
@@ -46,6 +71,6 @@ int main()
         std::cout<<"iteration: "<<cnt<<" ans: "<<sum<<" prediction: "<<prediction<<" cost: "<<nn.accumulate_training(ans)<<"\n\n";
         ++cnt;
         if (cnt%5==0) nn.apply_training();
-    }
+    }*/
     return 0;
 }
