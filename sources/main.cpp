@@ -13,7 +13,10 @@ int main()
     std::default_random_engine generator;
     std::uniform_int_distribution<int> distribution(0,1);
 
-    Network nn(1,{10,10,3},reluActivationFunction,2);
+    Network nn(1);
+    nn.add_fully_connected_layer(10,2);
+    nn.add_activation_layer(reluActivationFunction);
+    nn.add_fully_connected_layer(3,2);
     nn.set_learning_rate(0.005);
     nn.set_batch_size(20);
 

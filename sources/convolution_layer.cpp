@@ -6,7 +6,6 @@ inline unsigned int encode(unsigned int d, unsigned int w, unsigned int h, const
 {
     return d*s.heigth*s.width+h*s.width+w;
 }
-
 ConvolutionLayer::ConvolutionLayer(unsigned int depth, const Structure& convolutionStructure, const Structure& prevStructure, const std::vector<double>& prevValues, double varianceFactor, std::default_random_engine& generator)
     : Layer({depth,convolutionStructure,prevStructure},prevStructure,prevValues)
     , convolutionStructure{convolutionStructure}

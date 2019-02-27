@@ -2,8 +2,10 @@
 #define NETWORK_H_INCLUDED
 
 #include "activation_function.h"
+#include "structure.h"
 #include "layer.h"
 #include <vector>
+#include <random>
 
 class Network
 {
@@ -12,16 +14,23 @@ private:
     std::vector<Layer*> layers;
     unsigned int inputSize;
     std::vector<double> input;
-    unsigned int outputSize;
+    Structure outputStructure;
     const std::vector<double>* output;
-    unsigned int maxLayerSize;
     std::vector<double> dCost0dValues[2];
     double eta;
     unsigned int batchCnt;
     unsigned int batchSize;
+    unsigned int maxLayerSize;
+    std::default_random_engine generator;
+    void add_layer(Layer* layer);
 public:
-    Network(unsigned int inputSize, const std::vector<unsigned int>& topology, const ActivationFunction& activationFunction, double varianceFactor, int seed=0);
+    Network(const Structure& inputStructure, int seed=0);
+    Network(unsigned int inputSize, int seed=0);
+    //Network(unsigned int inputSize, const std::vector<unsigned int>& topology, const ActivationFunction& activationFunction, double varianceFactor, int seed=0);
     ~Network();
+    void add_activation_layer(const ActivationFunction& activationFunction);
+    void add_fully_connected_layer(unsigned int layerSize, double vairanceFactor);
+    void add_convolution_layer(unsigned int depth, const Structure& convolutionStructure, double varianceFactor);
     void set_learning_rate(double eta);
     void set_batch_size(unsigned int batchSize);
     const std::vector<double>& get_output(const std::vector<double> input);

@@ -1,54 +1,62 @@
 #include "../headers/network.h"
-#include "../headers/structure.h"
 #include "../headers/convolution_layer.h"
 #include "../headers/fully_connected_layer.h"
 #include "../headers/activation_layer.h"
 #include <assert.h>
-#include <random>
 
-Network::Network(unsigned int inputSize, const std::vector<unsigned int>& topology, const ActivationFunction& activationFunction, double varianceFactor, int seed)
-    : inputSize{inputSize}
+#include <iostream>
+using namespace std;
+
+Network::Network(const Structure& inputStructure, int seed)
+    : networkDepth{0}
+    , inputSize{inputStructure.size()}
+    , input(inputStructure.size())
+    , outputStructure{inputStructure}
+    , output{&input}
     , eta{0}
     , batchCnt{0}
     , batchSize{0}
+    , maxLayerSize{inputSize}
 {
-    input.resize(inputSize);
-    if (topology.empty()) networkDepth=0;
-    else networkDepth=topology.size()*2-1;
-    const std::vector<double>* lastValues=&input;
-    Structure lastStructure={inputSize,1,1};
-    std::default_random_engine generator;
     generator.seed(seed);
-    for (unsigned int i=0;i<networkDepth;++i)
-    {
-        if (i%2==0)
-        {
-            assert(topology[i/2]>=0);
-            layers.push_back(new FullyConnectedLayer(topology[i/2],*lastValues,varianceFactor,generator));
-        }
-        else
-        {
-            layers.push_back(new ActivationLayer(lastStructure,*lastValues,activationFunction));
-        }
-        lastValues=&layers[i]->get_values();
-        lastStructure=layers[i]->get_structure();
-    }
-    output=lastValues;
-    outputSize=output->size();
-    maxLayerSize=inputSize;
-    for (unsigned int i=0;i<topology.size();++i)
-    {
-        if (maxLayerSize<topology[i]) maxLayerSize=topology[i];
-    }
-    dCost0dValues[0].resize(maxLayerSize);
-    dCost0dValues[1].resize(maxLayerSize);
 }
+Network::Network(unsigned int inputSize, int seed)
+    : Network({inputSize,1,1},seed) {}
 Network::~Network()
 {
     for (unsigned int i=0;i<networkDepth;++i)
     {
         delete layers[i];
     }
+}
+void Network::add_layer(Layer* newLayer)
+{
+    output=&newLayer->get_values();
+    outputStructure=newLayer->get_structure();
+    layers.push_back(newLayer);
+    if (outputStructure.size()>maxLayerSize)
+    {
+        maxLayerSize=outputStructure.size();
+    }
+    ++networkDepth;
+}
+void Network::add_activation_layer(const ActivationFunction& activationFunction)
+{
+    Layer* newLayer=new ActivationLayer(outputStructure,*output,activationFunction);
+    add_layer(newLayer);
+}
+void Network::add_fully_connected_layer(unsigned int layerSize, double varianceFactor)
+{
+    assert(varianceFactor>=0);
+    Layer* newLayer=new FullyConnectedLayer(layerSize,*output,varianceFactor,generator);
+    add_layer(newLayer);
+}
+void Network::add_convolution_layer(unsigned int depth, const Structure& convolutionStructure, double varianceFactor)
+{
+    assert(convolutionStructure.depth==1);
+    assert(varianceFactor>=0);
+    Layer* newLayer=new ConvolutionLayer(depth,convolutionStructure,outputStructure,*output,varianceFactor,generator);
+    add_layer(newLayer);
 }
 void Network::set_learning_rate(double eta)
 {
@@ -73,11 +81,16 @@ const std::vector<double>& Network::get_output(const std::vector<double> input)
 }
 double Network::train(const std::vector<double> targetOutput)
 {
-    assert(targetOutput.size()==outputSize);
+    assert(targetOutput.size()==outputStructure.size());
+    if (maxLayerSize>dCost0dValues[0].size())
+    {
+        dCost0dValues[0].resize(maxLayerSize);
+        dCost0dValues[1].resize(maxLayerSize);
+    }
     double cost0=0;
     double currDiff;
     bool curr=0;
-    for (unsigned int i=0;i<outputSize;++i)
+    for (unsigned int i=0;i<outputStructure.size();++i)
     {
         currDiff=(*output)[i]-targetOutput[i];
         cost0+=currDiff*currDiff;
