@@ -4,26 +4,28 @@
 #include "activation_function.h"
 #include "layer.h"
 #include <vector>
-#include <random>
 
 class Network
 {
 private:
-    int inputSize;
-    int networkDepth;
-    int outputSize;
+    unsigned int networkDepth;
     std::vector<Layer*> layers;
+    unsigned int inputSize;
     std::vector<double> input;
-    double eta;
-    int maxLayerSize;
+    unsigned int outputSize;
+    const std::vector<double>* output;
+    unsigned int maxLayerSize;
     std::vector<double> dCost0dValues[2];
-    int batchCnt;
+    double eta;
+    unsigned int batchCnt;
+    unsigned int batchSize;
 public:
-    Network(int inputSize, const std::vector<int>& topology, const ActivationFunction& activationFunction, std::default_random_engine& generator);
+    Network(unsigned int inputSize, const std::vector<unsigned int>& topology, const ActivationFunction& activationFunction, double varianceFactor, int seed=0);
     ~Network();
-    void set_eta(double eta);
+    void set_learning_rate(double eta);
+    void set_batch_size(unsigned int batchSize);
     const std::vector<double>& get_output(const std::vector<double> input);
-    double accumulate_training(const std::vector<double> targetOutput);
+    double train(const std::vector<double> targetOutput);
     void apply_training();
 };
 

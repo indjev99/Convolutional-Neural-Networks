@@ -7,13 +7,14 @@
 class ActivationLayer : public Layer
 {
 private:
-    const int layerSize;
+    const unsigned int layerSize;
     const ActivationFunction& activationFunction;
 public:
     ActivationLayer(const std::vector<double>& prevValues, const ActivationFunction& activationFunction);
     ~ActivationLayer();
     void calc_values();
-    void accumulate_training(const std::vector<double>& dCost0dValues, std::vector<double>& dCost0dPrevValues);
+    void train(const std::vector<double>& dCost0dValues, std::vector<double>& dCost0dPrevValues);
+    void apply_training(double lambda);
 };
 
 #endif // ACTIVATION_LAYER_H_INCLUDED
