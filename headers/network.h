@@ -4,6 +4,7 @@
 #include "activation_function.h"
 #include "layer.h"
 #include <vector>
+#include <random>
 
 class Network
 {
@@ -11,7 +12,6 @@ private:
     int inputSize;
     int networkDepth;
     int outputSize;
-    const ActivationFunction& activationFunction;
     std::vector<Layer*> layers;
     std::vector<double> input;
     double eta;

@@ -12,22 +12,21 @@ int main()
     std::default_random_engine generator;
     std::uniform_int_distribution<int> distribution(0,1);
 
-    Network nn(3,{4,4,2},leakyReluActivationFunction,generator);
-    nn.set_eta(0.05);
+    Network nn(1,{8,8,3},reluActivationFunction,generator);
+    nn.set_eta(0.005);
 
-    int a,b,c,d,e;
+    int a,b,c,d;
     int cnt=0;
     while(1)
     {
         a=distribution(generator);
         b=distribution(generator);
         c=distribution(generator);
-        d=(a && b) || (!a && !c);
-        e=(a != b) && (c == b);
-        auto out=nn.get_output({a,b,c});
-        std::cout<<"iteration: "<<cnt<<" ans: "<<d<<" "<<e<<" prediction: "<<out[0]<<" "<<out[1]<<" cost: "<<nn.accumulate_training({d,e})<<"\n\n";
+        d=a*4+b*2+c;
+        auto out=nn.get_output({d});
+        std::cout<<"iteration: "<<cnt<<" ans: "<<d<<" prediction: "<<out[0]*4+out[1]*2+out[2]<<" cost: "<<nn.accumulate_training({a,b,c})<<"\n\n";
         ++cnt;
-        if (cnt%5==0)
+        if (cnt%20==0)
         {
             std::cout<<"Apply training."<<"\n\n";
             nn.apply_training();
