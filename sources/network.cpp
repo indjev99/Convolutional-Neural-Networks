@@ -1,4 +1,6 @@
 #include "../headers/network.h"
+#include "../headers/structure.h"
+#include "../headers/convolution_layer.h"
 #include "../headers/fully_connected_layer.h"
 #include "../headers/activation_layer.h"
 #include <assert.h>
@@ -14,6 +16,7 @@ Network::Network(unsigned int inputSize, const std::vector<unsigned int>& topolo
     if (topology.empty()) networkDepth=0;
     else networkDepth=topology.size()*2-1;
     const std::vector<double>* lastValues=&input;
+    Structure lastStructure={inputSize,1,1};
     std::default_random_engine generator;
     generator.seed(seed);
     for (unsigned int i=0;i<networkDepth;++i)
@@ -25,9 +28,10 @@ Network::Network(unsigned int inputSize, const std::vector<unsigned int>& topolo
         }
         else
         {
-            layers.push_back(new ActivationLayer(*lastValues,activationFunction));
+            layers.push_back(new ActivationLayer(lastStructure,*lastValues,activationFunction));
         }
         lastValues=&layers[i]->get_values();
+        lastStructure=layers[i]->get_structure();
     }
     output=lastValues;
     outputSize=output->size();

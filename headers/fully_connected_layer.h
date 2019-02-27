@@ -1,14 +1,11 @@
 #ifndef FULLY_CONNECTED_LAYER_H_INCLUDED
 #define FULLY_CONNECTED_LAYER_H_INCLUDED
 
-#include "computation_layer.h"
+#include "convolution_layer.h"
 #include <random>
 
-class FullyConnectedLayer : public ComputationLayer
+class FullyConnectedLayer : public ConvolutionLayer
 {
-private:
-    const unsigned int layerSize;
-    const unsigned int prevLayerSize;
 public:
     FullyConnectedLayer(unsigned int layerSize, const std::vector<double>& prevValues, double varianceFactor, std::default_random_engine& generator);
     ~FullyConnectedLayer();

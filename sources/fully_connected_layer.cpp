@@ -1,34 +1,32 @@
 #include "../headers/fully_connected_layer.h"
 
 FullyConnectedLayer::FullyConnectedLayer(unsigned int layerSize, const std::vector<double>& prevValues, double varianceFactor, std::default_random_engine& generator)
-    : ComputationLayer(layerSize,prevValues,layerSize,layerSize*prevValues.size(),varianceFactor/prevValues.size(),generator)
-    , layerSize{layerSize}
-    , prevLayerSize{prevValues.size()} {}
+    : ConvolutionLayer(layerSize,{1,1},{prevValues.size(),1,1},prevValues,varianceFactor,generator) {}
 FullyConnectedLayer::~FullyConnectedLayer() {}
 void FullyConnectedLayer::calc_values()
 {
-    for (unsigned int i=0;i<layerSize;++i)
+    for (unsigned int i=0;i<structure.depth;++i)
     {
         values[i]=biases[i];
-        for (unsigned int j=0;j<prevLayerSize;++j)
+        for (unsigned int j=0;j<prevStructure.depth;++j)
         {
-            values[i]+=weigths[i*prevLayerSize+j]*prevValues[j];
+            values[i]+=weigths[i*prevStructure.depth+j]*prevValues[j];
         }
     }
 }
 void FullyConnectedLayer::train(const std::vector<double>& dCost0dValues, std::vector<double>& dCost0dPrevValues)
 {
-    for (unsigned int i=0;i<prevLayerSize;++i)
+    for (unsigned int i=0;i<prevStructure.depth;++i)
     {
         dCost0dPrevValues[i]=0;
     }
-    for (unsigned int i=0;i<layerSize;++i)
+    for (unsigned int i=0;i<structure.depth;++i)
     {
         dCostdBiases[i]+=dCost0dValues[i];
-        for (unsigned int j=0;j<prevLayerSize;++j)
+        for (unsigned int j=0;j<prevStructure.depth;++j)
         {
-            dCostdWeigths[i*prevLayerSize+j]+=dCost0dValues[i]*prevValues[j];
-            dCost0dPrevValues[j]+=dCost0dValues[i]*weigths[i*prevLayerSize+j];
+            dCostdWeigths[i*prevStructure.depth+j]+=dCost0dValues[i]*prevValues[j];
+            dCost0dPrevValues[j]+=dCost0dValues[i]*weigths[i*prevStructure.depth+j];
         }
     }
 }

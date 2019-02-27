@@ -1,0 +1,80 @@
+# depslib dependency file v1.0
+1551287955 source:d:\github\convolutional-neural-networks\sources\activation_layer.cpp
+	"../headers/activation_layer.h"
+
+1551286467 d:\github\convolutional-neural-networks\headers\activation_layer.h
+	"layer.h"
+	"activation_function.h"
+
+1551286400 d:\github\convolutional-neural-networks\headers\layer.h
+	"structure.h"
+	<vector>
+
+1551289926 d:\github\convolutional-neural-networks\headers\structure.h
+
+1551118046 d:\github\convolutional-neural-networks\headers\activation_function.h
+
+1551286792 source:d:\github\convolutional-neural-networks\sources\layer.cpp
+	"../headers/layer.h"
+
+1551217418 source:d:\github\convolutional-neural-networks\sources\leaky_relu_activation_function.cpp
+	"../headers/leaky_relu_activation_function.h"
+
+1551217113 d:\github\convolutional-neural-networks\headers\leaky_relu_activation_function.h
+	"activation_function.h"
+
+1551123352 source:d:\github\convolutional-neural-networks\sources\logistic_activation_function.cpp
+	"../headers/logistic_activation_function.h"
+	<math.h>
+
+1551123272 d:\github\convolutional-neural-networks\headers\logistic_activation_function.h
+	"activation_function.h"
+
+1551279738 source:d:\github\convolutional-neural-networks\sources\main.cpp
+	"../headers/network.h"
+	"../headers/logistic_activation_function.h"
+	"../headers/relu_activation_function.h"
+	"../headers/leaky_relu_activation_function.h"
+	<iostream>
+	<vector>
+	<stdlib.h>
+	<math.h>
+	<random>
+
+1551279703 d:\github\convolutional-neural-networks\headers\network.h
+	"activation_function.h"
+	"layer.h"
+	<vector>
+
+1551128268 d:\github\convolutional-neural-networks\headers\relu_activation_function.h
+	"activation_function.h"
+
+1551290220 source:d:\github\convolutional-neural-networks\sources\network.cpp
+	"../headers/network.h"
+	"../headers/structure.h"
+	"../headers/convolution_layer.h"
+	"../headers/activation_layer.h"
+	<assert.h>
+	<random>
+
+1551217168 source:d:\github\convolutional-neural-networks\sources\relu_activation_function.cpp
+	"../headers/relu_activation_function.h"
+
+1551287975 source:d:\github\convolutional-neural-networks\sources\structure.cpp
+	"../headers/structure.h"
+
+1551290593 source:d:\github\convolutional-neural-networks\sources\convolution_layer.cpp
+	"../headers/convolution_layer.h"
+	<math.h>
+
+1551290523 d:\github\convolutional-neural-networks\headers\convolution_layer.h
+	"layer.h"
+	<random>
+
+1551290774 source:d:\github\convolutional-neural-networks\sources\fully_connected_layer.cpp
+	"../headers/fully_connected_layer.h"
+
+1551290573 d:\github\convolutional-neural-networks\headers\fully_connected_layer.h
+	"convolution_layer.h"
+	<random>
+

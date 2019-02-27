@@ -25,15 +25,16 @@
 		</Compiler>
 		<Unit filename="headers/activation_function.h" />
 		<Unit filename="headers/activation_layer.h" />
-		<Unit filename="headers/computation_layer.h" />
+		<Unit filename="headers/convolution_layer.h" />
 		<Unit filename="headers/fully_connected_layer.h" />
 		<Unit filename="headers/layer.h" />
 		<Unit filename="headers/leaky_relu_activation_function.h" />
 		<Unit filename="headers/logistic_activation_function.h" />
 		<Unit filename="headers/network.h" />
 		<Unit filename="headers/relu_activation_function.h" />
+		<Unit filename="headers/structure.h" />
 		<Unit filename="sources/activation_layer.cpp" />
-		<Unit filename="sources/computation_layer.cpp" />
+		<Unit filename="sources/convolution_layer.cpp" />
 		<Unit filename="sources/fully_connected_layer.cpp" />
 		<Unit filename="sources/layer.cpp" />
 		<Unit filename="sources/leaky_relu_activation_function.cpp" />
@@ -41,6 +42,7 @@
 		<Unit filename="sources/main.cpp" />
 		<Unit filename="sources/network.cpp" />
 		<Unit filename="sources/relu_activation_function.cpp" />
+		<Unit filename="sources/structure.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
