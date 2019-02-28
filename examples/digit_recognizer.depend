@@ -1,0 +1,84 @@
+# depslib dependency file v1.0
+1551362172 source:d:\github\kigarai\kigarai\activation_functions\leaky_relu_activation_function.cpp
+	"leaky_relu_activation_function.h"
+
+1551217113 d:\github\kigarai\kigarai\activation_functions\leaky_relu_activation_function.h
+	"activation_function.h"
+
+1551118046 d:\github\kigarai\kigarai\activation_functions\activation_function.h
+
+1551363452 source:d:\github\kigarai\kigarai\activation_functions\logistic_activation_function.cpp
+	"logistic_activation_function.h"
+	<math.h>
+
+1551123272 d:\github\kigarai\kigarai\activation_functions\logistic_activation_function.h
+	"activation_function.h"
+
+1551363455 source:d:\github\kigarai\kigarai\activation_functions\relu_activation_function.cpp
+	"relu_activation_function.h"
+
+1551128268 d:\github\kigarai\kigarai\activation_functions\relu_activation_function.h
+	"activation_function.h"
+
+1551363460 source:d:\github\kigarai\kigarai\layers\activation_layer.cpp
+	"activation_layer.h"
+
+1551363528 d:\github\kigarai\kigarai\layers\activation_layer.h
+	"layer.h"
+	"../activation_functions/activation_function.h"
+
+1551363475 d:\github\kigarai\kigarai\layers\layer.h
+	"structure/structure.h"
+	<vector>
+
+1551289926 d:\github\kigarai\kigarai\layers\structure\structure.h
+
+1551363471 source:d:\github\kigarai\kigarai\layers\convolution_layer.cpp
+	"convolution_layer.h"
+	<math.h>
+
+1551290523 d:\github\kigarai\kigarai\layers\convolution_layer.h
+	"layer.h"
+	<random>
+
+1551363527 source:d:\github\kigarai\kigarai\layers\fully_connected_layer.cpp
+	"fully_connected_layer.h"
+
+1551290573 d:\github\kigarai\kigarai\layers\fully_connected_layer.h
+	"convolution_layer.h"
+	<random>
+
+1551363533 source:d:\github\kigarai\kigarai\layers\layer.cpp
+	"layer.h"
+
+1551363545 source:d:\github\kigarai\kigarai\layers\structure\structure.cpp
+	"structure.h"
+
+1551363979 source:d:\github\kigarai\kigarai\network\network.cpp
+	"network.h"
+	"../layers/layers.h"
+	<assert.h>
+	<iostream>
+
+1551363895 d:\github\kigarai\kigarai\network\network.h
+	"../activation_functions/activation_function.h"
+	"../layers/layer.h"
+	"../layers/structure/structure.h"
+	<vector>
+	<random>
+
+1551363036 d:\github\kigarai\kigarai\layers\layers.h
+	"activation_layer.h"
+	"convolution_layer.h"
+	"fully_connected_layer.h"
+
+1551394432 source:d:\github\kigarai\kigarai\trainer\trainer.cpp
+	"trainer.h"
+	<algorithm>
+	<assert.h>
+	<iostream>
+
+1551363829 d:\github\kigarai\kigarai\trainer\trainer.h
+	"../network/network.h"
+	<vector>
+
