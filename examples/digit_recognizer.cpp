@@ -24,9 +24,6 @@ void parseTrainingData()
     int cnt=0;
     while (getline(trainingData,line))
     {
-        if (cnt%1000==0) cout<<"Training data: "<<cnt<<endl;;
-        //if (cnt==200) break;
-        ++cnt;
         istringstream lineStream(line);
         string elem;
         bool first=true;
@@ -48,6 +45,9 @@ void parseTrainingData()
                 trainingInputs[trainingInputs.size()-1].push_back(val/255.0);
             }
         }
+        ++cnt;
+        if (cnt%1000==0) cout<<"Training data: "<<cnt<<endl;;
+        //if (cnt==2000) break;
     }
 }
 void parseTestData()
@@ -57,9 +57,6 @@ void parseTestData()
     int cnt=0;
     while (getline(testData,line))
     {
-        if (cnt%1000==0) cout<<"Test data: "<<cnt<<endl;
-        //if (cnt==100) break;
-        ++cnt;
         istringstream lineStream(line);
         string elem;
         testInputs.push_back({});
@@ -70,6 +67,9 @@ void parseTestData()
             elemStream>>val;
             testInputs[testInputs.size()-1].push_back(val/255.0);
         }
+        ++cnt;
+        if (cnt%1000==0) cout<<"Test data: "<<cnt<<endl;
+        //if (cnt==1000) break;
     }
 }
 void parseData()
@@ -110,37 +110,35 @@ void printPredictions()
     {
         testPrediction<<i+1<<','<<testLabels[i]<<'\n';
     }
+    for (int i=testLabels.size();i<28000;++i)
+    {
+        testPrediction<<i+1<<','<<0<<'\n';
+    }
 }
 Network nn({1,28,28},1337);
 void trainOnData()
 {
     nn.add_convolution_layer(10,{5,5},2);
     nn.add_activation_layer(reluActivationFunction);
+    nn.add_polling_layer({2,2});
     nn.add_convolution_layer(10,{5,5},2);
     nn.add_activation_layer(reluActivationFunction);
-    nn.add_convolution_layer(10,{5,5},2);
+    nn.add_polling_layer({2,2});
+    nn.add_fully_connected_layer(75,2);
     nn.add_activation_layer(reluActivationFunction);
-    nn.add_convolution_layer(10,{5,5},2);
-    nn.add_activation_layer(reluActivationFunction);
-    nn.add_convolution_layer(10,{5,5},2);
-    nn.add_activation_layer(reluActivationFunction);
-    nn.add_convolution_layer(10,{5,5},2);
-    nn.add_activation_layer(reluActivationFunction);
-    nn.add_fully_connected_layer(100,2);
-    nn.add_activation_layer(reluActivationFunction);
-    nn.add_fully_connected_layer(50,2);
+    nn.add_fully_connected_layer(35,2);
     nn.add_activation_layer(reluActivationFunction);
     nn.add_fully_connected_layer(10,2);
     nn.set_learning_rate(0.01);
-    nn.set_batch_size(20);
+    nn.set_batch_size(100);
     Trainer trainer(nn,trainingInputs,trainingOutputs);
     for (int i=0;i<5;++i)
     {
         if (i==0) nn.set_learning_rate(0.01);
-        else if (i==1) nn.set_learning_rate(0.0075);
-        else if (i==2) nn.set_learning_rate(0.005);
-        else if (i==3) nn.set_learning_rate(0.0025);
-        else if (i==4) nn.set_learning_rate(0.001);
+        else if (i==1) nn.set_learning_rate(0.0033);
+        else if (i==2) nn.set_learning_rate(0.001);
+        else if (i==3) nn.set_learning_rate(0.00033);
+        else if (i==4) nn.set_learning_rate(0.00001);
         cout<<"Epoch: "<<i+1<<" with cost: "<<trainer.train_epoch()<<endl;
     }
 }

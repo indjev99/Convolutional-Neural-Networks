@@ -27,6 +27,7 @@ public:
     Network(const Structure& inputStructure, int seed=0);
     Network(unsigned int inputSize, int seed=0);
     ~Network();
+    void add_polling_layer(const Structure& field);
     void add_activation_layer(const ActivationFunction& activationFunction);
     void add_fully_connected_layer(unsigned int layerSize, double vairanceFactor);
     void add_convolution_layer(unsigned int depth, const Structure& convolutionStructure, double varianceFactor);

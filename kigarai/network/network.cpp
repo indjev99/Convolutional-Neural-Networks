@@ -38,6 +38,11 @@ void Network::add_layer(Layer* newLayer)
     }
     ++networkDepth;
 }
+void Network::add_polling_layer(const Structure& field)
+{
+    Layer* newLayer=new PollingLayer(field,outputStructure,*output);
+    add_layer(newLayer);
+}
 void Network::add_activation_layer(const ActivationFunction& activationFunction)
 {
     Layer* newLayer=new ActivationLayer(outputStructure,*output,activationFunction);

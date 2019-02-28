@@ -2,6 +2,9 @@
 #include <algorithm>
 #include <assert.h>
 
+#include<iostream>
+using namespace std;
+
 Trainer::Trainer(Network& network, const std::vector<std::vector<double>>& inputs, const std::vector<std::vector<double>>& outputs)
     : network{network}
     , sampleNumber{inputs.size()}
@@ -24,6 +27,7 @@ double Trainer::train_epoch()
         int j=permutation[i];
         network.get_output(inputs[j]);
         cost+=network.train(outputs[j]);
+        if ((i+1)%1000==0) cerr<<" "<<i+1<<endl;
     }
     return cost/sampleNumber;
 }
