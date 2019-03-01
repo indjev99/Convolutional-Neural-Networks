@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_project_file>
-	<FileVersion major="1" minor="0" />
+	<FileVersion major="1" minor="6" />
 	<Project>
 		<Option title="digit_recognizer" />
 		<Option pch_mode="2" />
@@ -19,17 +19,21 @@
 				</Linker>
 			</Target>
 		</Build>
+		<VirtualTargets>
+			<Add alias="All" targets="release;" />
+		</VirtualTargets>
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="../kigarai/layers/layer.cpp" />
+		<Unit filename="../kigarai/activation_functions/leaky_relu_activation_function.cpp" />
+		<Unit filename="../kigarai/activation_functions/logistic_activation_function.cpp" />
+		<Unit filename="../kigarai/activation_functions/relu_activation_function.cpp" />
 		<Unit filename="../kigarai/layers/activation_layer.cpp" />
 		<Unit filename="../kigarai/layers/convolution_layer.cpp" />
 		<Unit filename="../kigarai/layers/fully_connected_layer.cpp" />
-		<Unit filename="../kigarai/activation_functions/relu_activation_function.cpp" />
-		<Unit filename="../kigarai/activation_functions/leaky_relu_activation_function.cpp" />
-		<Unit filename="../kigarai/activation_functions/logistic_activation_function.cpp" />
+		<Unit filename="../kigarai/layers/layer.cpp" />
+		<Unit filename="../kigarai/layers/polling_layer.cpp" />
 		<Unit filename="../kigarai/layers/structure/structure.cpp" />
 		<Unit filename="../kigarai/network/network.cpp" />
 		<Unit filename="../kigarai/trainer/trainer.cpp" />

@@ -120,25 +120,25 @@ void trainOnData()
 {
     nn.add_convolution_layer(10,{5,5},2);
     nn.add_activation_layer(reluActivationFunction);
-    nn.add_polling_layer({2,2});
     nn.add_convolution_layer(10,{5,5},2);
     nn.add_activation_layer(reluActivationFunction);
     nn.add_polling_layer({2,2});
-    nn.add_fully_connected_layer(75,2);
+    nn.add_convolution_layer(15,{5,5},2);
+    nn.add_activation_layer(reluActivationFunction);
+    nn.add_polling_layer({2,2});
+    nn.add_fully_connected_layer(70,2);
     nn.add_activation_layer(reluActivationFunction);
     nn.add_fully_connected_layer(35,2);
     nn.add_activation_layer(reluActivationFunction);
     nn.add_fully_connected_layer(10,2);
-    nn.set_learning_rate(0.01);
+    nn.add_activation_layer(reluActivationFunction);
     nn.set_batch_size(100);
     Trainer trainer(nn,trainingInputs,trainingOutputs);
-    for (int i=0;i<5;++i)
+    for (int i=0;i<10;++i)
     {
-        if (i==0) nn.set_learning_rate(0.01);
-        else if (i==1) nn.set_learning_rate(0.0033);
-        else if (i==2) nn.set_learning_rate(0.001);
-        else if (i==3) nn.set_learning_rate(0.00033);
-        else if (i==4) nn.set_learning_rate(0.00001);
+        if (i==0) nn.set_learning_rate(0.02);
+        else if (i==2) nn.set_learning_rate(0.01);
+        else if (i==4) nn.set_learning_rate(0.005);
         cout<<"Epoch: "<<i+1<<" with cost: "<<trainer.train_epoch()<<endl;
     }
 }
