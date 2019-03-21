@@ -1,13 +1,24 @@
 #include "structure.h"
 
+#include <assert.h>
+
 Structure::Structure(unsigned int depth, unsigned int heigth, unsigned int width)
     : depth{depth}
     , heigth{heigth}
-    , width{width} {}
+    , width{width}
+{
+    assert(depth>0);
+    assert(heigth>0);
+    assert(width>0);
+}
 Structure::Structure(unsigned int heigth, unsigned int width)
-    : depth{1}
+    : depth{0}
     , heigth{heigth}
-    , width{width} {}
+    , width{width}
+{
+    assert(heigth>0);
+    assert(width>0);
+}
 Structure::Structure(unsigned int depth, const Structure& convolutionStructure, const Structure& prevStructure)
     : depth{depth}
     , heigth{prevStructure.heigth+1-convolutionStructure.heigth}

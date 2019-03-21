@@ -33,6 +33,7 @@
 		<Unit filename="../kigarai/layers/convolution_layer.cpp" />
 		<Unit filename="../kigarai/layers/fully_connected_layer.cpp" />
 		<Unit filename="../kigarai/layers/layer.cpp" />
+		<Unit filename="../kigarai/layers/padding_layer.cpp" />
 		<Unit filename="../kigarai/layers/polling_layer.cpp" />
 		<Unit filename="../kigarai/layers/structure/structure.cpp" />
 		<Unit filename="../kigarai/network/network.cpp" />

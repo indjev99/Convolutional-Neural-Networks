@@ -1,5 +1,4 @@
 #include "polling_layer.h"
-#include <assert.h>
 
 inline unsigned int encodeIndex(unsigned int d, unsigned int w, unsigned int h, const Structure& s)
 {
@@ -8,25 +7,22 @@ inline unsigned int encodeIndex(unsigned int d, unsigned int w, unsigned int h, 
 PollingLayer::PollingLayer(const Structure& field, const Structure& prevStructure, const std::vector<double>& prevValues)
     : Layer({prevStructure.depth,(prevStructure.heigth+field.heigth+1)/field.heigth,(prevStructure.width+field.width+1)/field.width},prevStructure,prevValues)
     , field{field}
-    , maxSource(structure.size())
-{
-    assert(field.depth==1);
-}
+    , maxSource(structure.size()) {}
 PollingLayer::~PollingLayer() {}
 void PollingLayer::calc_values()
 {
-    for (int d=0;d<structure.depth;++d)
+    for (unsigned int d=0;d<structure.depth;++d)
     {
-        for (int h=0;h<structure.heigth;++h)
+        for (unsigned int h=0;h<structure.heigth;++h)
         {
-            for (int w=0;w<structure.width;++w)
+            for (unsigned int w=0;w<structure.width;++w)
             {
                 int i=encodeIndex(d,h,w,structure);
                 int h2=h*field.heigth;
                 int w2=w*field.width;
-                for (int hOffset=0;hOffset<field.heigth && h2+hOffset<prevStructure.heigth;++hOffset)
+                for (unsigned int hOffset=0;hOffset<field.heigth && h2+hOffset<prevStructure.heigth;++hOffset)
                 {
-                    for (int wOffset=0;wOffset<field.heigth && w2+wOffset<prevStructure.width;++wOffset)
+                    for (unsigned int wOffset=0;wOffset<field.heigth && w2+wOffset<prevStructure.width;++wOffset)
                     {
                         int j=encodeIndex(d,h2+hOffset,w2+wOffset,prevStructure);
                         if ((!hOffset && !wOffset) || prevValues[j]>values[i])

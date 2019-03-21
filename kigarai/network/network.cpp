@@ -38,8 +38,15 @@ void Network::add_layer(Layer* newLayer)
     }
     ++networkDepth;
 }
+void Network::add_padding_layer(const Structure& padding)
+{
+    assert(padding.depth==0);
+    Layer* newLayer=new PaddingLayer(padding,outputStructure,*output);
+    add_layer(newLayer);
+}
 void Network::add_polling_layer(const Structure& field)
 {
+    assert(field.depth==0);
     Layer* newLayer=new PollingLayer(field,outputStructure,*output);
     add_layer(newLayer);
 }
@@ -56,7 +63,7 @@ void Network::add_fully_connected_layer(unsigned int layerSize, double varianceF
 }
 void Network::add_convolution_layer(unsigned int depth, const Structure& convolutionStructure, double varianceFactor)
 {
-    assert(convolutionStructure.depth==1);
+    assert(convolutionStructure.depth==0);
     assert(varianceFactor>=0);
     Layer* newLayer=new ConvolutionLayer(depth,convolutionStructure,outputStructure,*output,varianceFactor,generator);
     add_layer(newLayer);

@@ -2,7 +2,7 @@
 
 Layer::Layer(const Structure& structure, const Structure& prevStructure, const std::vector<double>& prevValues)
     : structure(structure)
-    , values(structure.depth*structure.heigth*structure.width)
+    , values(structure.depth*structure.heigth*structure.width,0)
     , prevStructure(prevStructure)
     , prevValues{prevValues} {}
 Layer::~Layer() {}
