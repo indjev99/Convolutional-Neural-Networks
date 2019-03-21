@@ -5,7 +5,7 @@ inline unsigned int encodeIndex(unsigned int d, unsigned int w, unsigned int h, 
     return d*s.heigth*s.width+h*s.width+w;
 }
 PollingLayer::PollingLayer(const Structure& field, const Structure& prevStructure, const std::vector<double>& prevValues)
-    : Layer({prevStructure.depth,(prevStructure.heigth+field.heigth+1)/field.heigth,(prevStructure.width+field.width+1)/field.width},prevStructure,prevValues)
+    : Layer({prevStructure.depth,(prevStructure.heigth+field.heigth-1)/field.heigth,(prevStructure.width+field.width-1)/field.width},prevStructure,prevValues)
     , field{field}
     , maxSource(structure.size()) {}
 PollingLayer::~PollingLayer() {}
