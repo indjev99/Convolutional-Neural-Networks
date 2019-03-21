@@ -16,7 +16,7 @@ void PaddingLayer::calc_values()
         {
             for (int w=0;w<prevStructure.width;++w)
             {
-                int i=encodeIndex(d,h,w,structure);
+                int i=encodeIndex(d,h,w,prevStructure);
                 int j=encodeIndex(d,h+padding.heigth/2,w+padding.width/2,structure);
                 values[j]=prevValues[i];
             }
@@ -31,7 +31,7 @@ void PaddingLayer::train(const std::vector<double>& dCost0dValues, std::vector<d
         {
             for (int w=0;w<prevStructure.width;++w)
             {
-                int i=encodeIndex(d,h,w,structure);
+                int i=encodeIndex(d,h,w,prevStructure);
                 int j=encodeIndex(d,h+padding.heigth/2,w+padding.width/2,structure);
                 dCost0dPrevValues[i]=dCost0dValues[i];
             }
