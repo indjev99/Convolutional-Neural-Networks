@@ -61,10 +61,14 @@ void Network::add_fully_connected_layer(unsigned int layerSize, double varianceF
     Layer* newLayer=new FullyConnectedLayer(layerSize,*output,varianceFactor,generator);
     add_layer(newLayer);
 }
-void Network::add_convolution_layer(unsigned int depth, const Structure& convolutionStructure, double varianceFactor)
+void Network::add_convolution_layer(unsigned int depth, const Structure& convolutionStructure, double varianceFactor, bool padding)
 {
     assert(convolutionStructure.depth==0);
     assert(varianceFactor>=0);
+    if (padding)
+    {
+        add_padding_layer({convolutionStructure.heigth-1,convolutionStructure.width-1});
+    }
     Layer* newLayer=new ConvolutionLayer(depth,convolutionStructure,outputStructure,*output,varianceFactor,generator);
     add_layer(newLayer);
 }

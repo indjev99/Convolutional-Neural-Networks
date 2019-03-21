@@ -23,15 +23,15 @@ private:
     unsigned int maxLayerSize;
     std::default_random_engine generator;
     void add_layer(Layer* layer);
+    void add_padding_layer(const Structure& padding);
 public:
     Network(const Structure& inputStructure, int seed=0);
     Network(unsigned int inputSize, int seed=0);
     ~Network();
-    void add_padding_layer(const Structure& padding);
     void add_polling_layer(const Structure& field);
     void add_activation_layer(const ActivationFunction& activationFunction);
     void add_fully_connected_layer(unsigned int layerSize, double vairanceFactor);
-    void add_convolution_layer(unsigned int depth, const Structure& convolutionStructure, double varianceFactor);
+    void add_convolution_layer(unsigned int depth, const Structure& convolutionStructure, double varianceFactor, bool padding=false);
     void set_learning_rate(double eta);
     void set_batch_size(unsigned int batchSize);
     const std::vector<double>& get_output(const std::vector<double> input);
