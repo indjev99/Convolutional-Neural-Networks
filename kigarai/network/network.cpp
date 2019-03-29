@@ -2,9 +2,6 @@
 #include "../layers/layers.h"
 #include <assert.h>
 
-#include <iostream>
-using namespace std;
-
 Network::Network(const Structure& inputStructure, int seed)
     : networkDepth{0}
     , inputSize{inputStructure.size()}
@@ -90,7 +87,7 @@ const std::vector<double>& Network::get_output(const std::vector<double> input)
     for (unsigned int i=0;i<networkDepth;++i)
     {
         layers[i]->calc_values();
-    };
+    }
     return *output;
 }
 double Network::train(const std::vector<double> targetOutput)

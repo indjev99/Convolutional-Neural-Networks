@@ -1,8 +1,8 @@
 #include "../kigarai/kigarai.h"
 #include <iostream>
-#include <sstream>
 #include <fstream>
 #include <vector>
+#include <locale>
 
 using namespace std;
 
@@ -17,65 +17,68 @@ vector<vector<double>> testInputs;
 vector<vector<double>> testOutputs;
 vector<int> testLabels;
 
-void parseTrainingData()
+inline bool is_digit(char c)
+{
+    return c>='0' && c<='9';
+}
+int get_number(const string& word, int& pos)
+{
+    int a=0;
+    while (!is_digit(word[pos]))
+    {
+        ++pos;
+    }
+    while (is_digit(word[pos]))
+    {
+        a=a*10+word[pos]-'0';
+        ++pos;
+    }
+    return a;
+}
+
+void parse_training_data()
 {
     string line;
     getline(trainingData,line);
-    int cnt=0;
     while (getline(trainingData,line))
     {
-        istringstream lineStream(line);
-        string elem;
         bool first=true;
+        int pos=0;
         trainingInputs.push_back({});
-        while(getline(lineStream,elem,','))
+        while(pos<line.size())
         {
-            istringstream elemStream(elem);
             if (first)
             {
-                int label;
-                elemStream>>label;
-                trainingLabels.push_back(label);
+                trainingLabels.push_back(get_number(line,pos));
                 first=false;
             }
             else
             {
-                double val;
-                elemStream>>val;
-                trainingInputs[trainingInputs.size()-1].push_back(val/255.0);
+                trainingInputs[trainingInputs.size()-1].push_back(get_number(line,pos)/255.0);
             }
         }
-        ++cnt;
-        if (cnt%1000==0) cout<<"Training data: "<<cnt<<endl;;
-        //if (cnt==2000) break;
     }
 }
-void parseTestData()
+void parse_test_data()
 {
     string line;
     getline(testData,line);
-    int cnt=0;
     while (getline(testData,line))
     {
-        istringstream lineStream(line);
-        string elem;
+        int pos=0;
         testInputs.push_back({});
-        while(getline(lineStream,elem,','))
+        while(pos<line.size())
         {
-            istringstream elemStream(elem);
-            double val;
-            elemStream>>val;
-            testInputs[testInputs.size()-1].push_back(val/255.0);
+            testInputs[testInputs.size()-1].push_back(get_number(line,pos)/255.0);
         }
-        ++cnt;
-        if (cnt%1000==0) cout<<"Test data: "<<cnt<<endl;
-        //if (cnt==1000) break;
     }
 }
-void parseData()
+void parse_data()
 {
-    parseTrainingData();
-    parseTestData();
+    parse_training_data();
+    cerr<<"Parsed training data."<<endl;
+    parse_test_data();
+    cerr<<"Parsed test data."<<endl;
     vector<double> curr(10,0);
     for (int i=0;i<trainingLabels.size();++i)
     {
@@ -83,9 +86,9 @@ void parseData()
         trainingOutputs.push_back(curr);
         curr[trainingLabels[i]]=0;
     }
-    cerr<<trainingInputs[0].size()<<" -> "<<trainingOutputs[0].size()<<endl;
+    cerr<<"Network: "<<trainingInputs[0].size()<<" -> "<<trainingOutputs[0].size()<<endl;
 }
-void printPredictions()
+void print_predictions()
 {
     vector<double> curr;
     double maxAct;
@@ -116,22 +119,29 @@ void printPredictions()
     }
 }
 Network nn({1,28,28},1337);
-void trainOnData()
+void train_on_data()
 {
-    nn.add_convolution_layer(10,{5,5},2);
-    nn.add_activation_layer(reluActivationFunction);
-    nn.add_convolution_layer(10,{5,5},2);
+    nn.add_convolution_layer(10,{4,4},2,true);
     nn.add_activation_layer(reluActivationFunction);
     nn.add_polling_layer({2,2});
-    nn.add_convolution_layer(15,{5,5},2);
+
+    nn.add_convolution_layer(10,{4,4},2,true);
     nn.add_activation_layer(reluActivationFunction);
     nn.add_polling_layer({2,2});
-    nn.add_fully_connected_layer(70,2);
+
+    nn.add_convolution_layer(15,{4,4},2,false);
     nn.add_activation_layer(reluActivationFunction);
-    nn.add_fully_connected_layer(35,2);
+    nn.add_polling_layer({2,2});
+
+    nn.add_fully_connected_layer(75,2);
     nn.add_activation_layer(reluActivationFunction);
+
+    nn.add_fully_connected_layer(40,2);
+    nn.add_activation_layer(reluActivationFunction);
+
     nn.add_fully_connected_layer(10,2);
     nn.add_activation_layer(reluActivationFunction);
+
     nn.set_batch_size(100);
     Trainer trainer(nn,trainingInputs,trainingOutputs);
     for (int i=0;i<10;++i)
@@ -142,7 +152,7 @@ void trainOnData()
         cout<<"Epoch: "<<i+1<<" with cost: "<<trainer.train_epoch()<<endl;
     }
 }
-void makePredictions()
+void make_predictions()
 {
     for (int i=0;i<testInputs.size();++i)
     {
@@ -151,9 +161,9 @@ void makePredictions()
 }
 int main()
 {
-    parseData();
-    trainOnData();
-    makePredictions();
-    printPredictions();
+    parse_data();
+    train_on_data();
+    make_predictions();
+    print_predictions();
     return 0;
 }

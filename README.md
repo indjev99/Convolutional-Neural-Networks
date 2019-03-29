@@ -18,9 +18,6 @@ A work in progress C++ machine learning library. Focused on supervised training.
 - Reccurent NNs such as LSTMs
 - Porting the code to work on the GPU and other optimizations
 
-### Planned fixes:
-- Deallocation of memory when deleting a network.
-
 ### Use:
 - Construct the network layer by layer
 - Couple it with a trainer and give it the training dataset

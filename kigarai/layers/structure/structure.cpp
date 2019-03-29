@@ -25,6 +25,7 @@ Structure::Structure(unsigned int depth, const Structure& convolutionStructure, 
     , width{prevStructure.width+1-convolutionStructure.width} {}
 unsigned int Structure::size() const
 {
+    if (depth==0) return heigth*width;
     return depth*heigth*width;
 }
 Structure Structure::get_flat() const

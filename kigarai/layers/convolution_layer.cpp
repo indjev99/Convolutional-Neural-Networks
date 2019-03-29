@@ -1,7 +1,5 @@
 #include "convolution_layer.h"
 
-#include <math.h>
-
 inline unsigned int encodeIndex(unsigned int d, unsigned int w, unsigned int h, const Structure& s)
 {
     return d*s.heigth*s.width+h*s.width+w;
