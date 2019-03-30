@@ -12,6 +12,8 @@ A work in progress C++ machine learning library. Focused on supervised training.
 - RELU
 - Leaky RELU
 - Logistic curve
+- Hyperbolic tangent
+- Arctangent
 
 ### Planned features:
 - Ability to chain NNs one after another during training for Auto-encoders

@@ -17,14 +17,14 @@ void PollingLayer::calc_values()
         {
             for (unsigned int w=0;w<structure.width;++w)
             {
-                int i=encodeIndex(d,h,w,structure);
-                int h2=h*field.heigth;
-                int w2=w*field.width;
+                unsigned int i=encodeIndex(d,h,w,structure);
+                unsigned int h2=h*field.heigth;
+                unsigned int w2=w*field.width;
                 for (unsigned int hOffset=0;hOffset<field.heigth && h2+hOffset<prevStructure.heigth;++hOffset)
                 {
                     for (unsigned int wOffset=0;wOffset<field.heigth && w2+wOffset<prevStructure.width;++wOffset)
                     {
-                        int j=encodeIndex(d,h2+hOffset,w2+wOffset,prevStructure);
+                        unsigned int j=encodeIndex(d,h2+hOffset,w2+wOffset,prevStructure);
                         if ((!hOffset && !wOffset) || prevValues[j]>values[i])
                         {
                             values[i]=prevValues[j];

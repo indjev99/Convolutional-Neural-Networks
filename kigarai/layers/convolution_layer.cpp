@@ -27,7 +27,7 @@ void ConvolutionLayer::calc_values()
         {
             for (unsigned int w=0;w<structure.width;++w)
             {
-                int i=encodeIndex(d,h,w,structure);
+                unsigned int i=encodeIndex(d,h,w,structure);
                 values[i]=biases[d];
                 for (unsigned int d2=0;d2<prevStructure.depth;++d2)
                 {
@@ -35,10 +35,10 @@ void ConvolutionLayer::calc_values()
                     {
                         for (unsigned int wOffset=0;wOffset<convolutionStructure.width;++wOffset)
                         {
-                            int h2=h+hOffset;
-                            int w2=w+wOffset;
-                            int j=encodeIndex(d2,h2,w2,prevStructure);
-                            int k=d*prevStructure.depth*convolutionStructure.size()+encodeIndex(d2,hOffset,wOffset,convolutionStructure);
+                            unsigned int h2=h+hOffset;
+                            unsigned int w2=w+wOffset;
+                            unsigned int j=encodeIndex(d2,h2,w2,prevStructure);
+                            unsigned int k=d*prevStructure.depth*convolutionStructure.size()+encodeIndex(d2,hOffset,wOffset,convolutionStructure);
                             values[i]+=weigths[k]*prevValues[j];
                         }
                     }
@@ -59,7 +59,7 @@ void ConvolutionLayer::train(const std::vector<double>& dCost0dValues, std::vect
         {
             for (unsigned int w=0;w<structure.width;++w)
             {
-                int i=encodeIndex(d,h,w,structure);
+                unsigned int i=encodeIndex(d,h,w,structure);
                 dCostdBiases[d]+=dCost0dValues[i];
                 for (unsigned int d2=0;d2<prevStructure.depth;++d2)
                 {
@@ -67,10 +67,10 @@ void ConvolutionLayer::train(const std::vector<double>& dCost0dValues, std::vect
                     {
                         for (unsigned int wOffset=0;wOffset<convolutionStructure.width;++wOffset)
                         {
-                            int h2=h+hOffset;
-                            int w2=w+wOffset;
-                            int j=encodeIndex(d2,h2,w2,prevStructure);
-                            int k=d*prevStructure.depth*convolutionStructure.size()+encodeIndex(d2,hOffset,wOffset,convolutionStructure);
+                            unsigned int h2=h+hOffset;
+                            unsigned int w2=w+wOffset;
+                            unsigned int j=encodeIndex(d2,h2,w2,prevStructure);
+                            unsigned int k=d*prevStructure.depth*convolutionStructure.size()+encodeIndex(d2,hOffset,wOffset,convolutionStructure);
                             dCostdWeigths[k]+=dCost0dValues[i]*prevValues[j];
                             dCost0dPrevValues[j]+=dCost0dValues[i]*weigths[k];
                         }

@@ -10,14 +10,14 @@ PaddingLayer::PaddingLayer(const Structure& padding, const Structure& prevStruct
 PaddingLayer::~PaddingLayer() {}
 void PaddingLayer::calc_values()
 {
-    for (int d=0;d<prevStructure.depth;++d)
+    for (unsigned int d=0;d<prevStructure.depth;++d)
     {
-        for (int h=0;h<prevStructure.heigth;++h)
+        for (unsigned int h=0;h<prevStructure.heigth;++h)
         {
-            for (int w=0;w<prevStructure.width;++w)
+            for (unsigned int w=0;w<prevStructure.width;++w)
             {
-                int i=encodeIndex(d,h,w,prevStructure);
-                int j=encodeIndex(d,h+padding.heigth/2,w+padding.width/2,structure);
+                unsigned int i=encodeIndex(d,h,w,prevStructure);
+                unsigned int j=encodeIndex(d,h+padding.heigth/2,w+padding.width/2,structure);
                 values[j]=prevValues[i];
             }
         }
@@ -25,15 +25,15 @@ void PaddingLayer::calc_values()
 }
 void PaddingLayer::train(const std::vector<double>& dCost0dValues, std::vector<double>& dCost0dPrevValues)
 {
-    for (int d=0;d<prevStructure.depth;++d)
+    for (unsigned int d=0;d<prevStructure.depth;++d)
     {
-        for (int h=0;h<prevStructure.heigth;++h)
+        for (unsigned int h=0;h<prevStructure.heigth;++h)
         {
-            for (int w=0;w<prevStructure.width;++w)
+            for (unsigned int w=0;w<prevStructure.width;++w)
             {
-                int i=encodeIndex(d,h,w,prevStructure);
-                int j=encodeIndex(d,h+padding.heigth/2,w+padding.width/2,structure);
-                dCost0dPrevValues[i]=dCost0dValues[i];
+                unsigned int i=encodeIndex(d,h,w,prevStructure);
+                unsigned int j=encodeIndex(d,h+padding.heigth/2,w+padding.width/2,structure);
+                dCost0dPrevValues[i]=dCost0dValues[j];
             }
         }
     }

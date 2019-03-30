@@ -26,9 +26,11 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="../kigarai/activation_functions/arctan_activation_function.cpp" />
 		<Unit filename="../kigarai/activation_functions/leaky_relu_activation_function.cpp" />
 		<Unit filename="../kigarai/activation_functions/logistic_activation_function.cpp" />
 		<Unit filename="../kigarai/activation_functions/relu_activation_function.cpp" />
+		<Unit filename="../kigarai/activation_functions/tanh_activation_function.cpp" />
 		<Unit filename="../kigarai/layers/activation_layer.cpp" />
 		<Unit filename="../kigarai/layers/convolution_layer.cpp" />
 		<Unit filename="../kigarai/layers/fully_connected_layer.cpp" />
