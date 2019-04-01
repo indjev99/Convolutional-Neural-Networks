@@ -16,7 +16,7 @@ A work in progress C++ machine learning library. Focused on supervised training.
 - Arctangent
 
 ### Planned features:
-- Ability to chain NNs one after another during training for Auto-encoders
+- Ability to chain NNs one after another during training for auto-encoders
 - Reccurent NNs such as LSTMs
 - Porting the code to work on the GPU and other optimizations
 
