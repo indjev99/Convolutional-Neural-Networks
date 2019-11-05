@@ -1,3 +1,5 @@
+/** To run this you should download the digit recognition data from Kaggle. */
+
 #include "../kigarai/kigarai.h"
 #include <iostream>
 #include <fstream>
